@@ -1,0 +1,49 @@
+<%- include('./partials/header') %>
+<div class="text-center m-3 p-3">
+    <h3><%=center.name%></h3>
+    <h4 style="color: gray;"><%=center.address%></h4>
+    <h5>Pincode-<%=center.pincode%></h5>
+    <p>Timings: <%=center.from%>-<%=center.to%></p>
+    <p style="color: red;"><%=center.fee_type%></p>
+    <% if (center.vaccine_fees) { %>
+    <% for (let vaccines of center.vaccine_fees) { %>
+                    <p class="m-0 p-0" style="color: orange;"><%=vaccines.vaccine%>-<%=vaccines.fee%></p>
+                    <% } %>
+                    <% } else {%>
+                        <p></p>
+                        <% } %>
+                    <!-- <a class="btn btn-small btn-danger mt-3" href="/centers/<%=center.pincode%>">Go back</a> -->
+</div>
+<div class="row" style="margin: auto;">
+    <div class="col-6 offset-3">
+        <% for (let centers of center.sessions) { %>
+            <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title"><%=centers.date%></h5>
+                  <h6 class="card-subtitle mb-2 text-muted" style="color: green;">Vaccines available<%= centers.available_capacity%></h6>
+                  
+                    <p class="card-text m-0 p-0"><%=centers.vaccine%></p>
+                    
+        
+                </div>
+                <ul class="list-group list-group-flush">
+                    <% if (centers.allow_all_age == true) { %>
+                        <div class="card-header">
+                    All Ages
+                  </div>
+                  <% } else { %>
+                    <div class="card-header">
+                    
+                  </div>
+                  <% } %>
+                  <li class="list-group-item">First Dose Available-<%=centers.available_capacity_dose1%></li>
+                  <li class="list-group-item">Second Dose Available-<%=centers.available_capacity_dose2%></li>
+                  
+                </ul>
+                
+               
+              </div>
+              <% } %>
+    </div>
+</div>
+<%- include('./partials/footer') %>

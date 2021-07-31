@@ -1,0 +1,42 @@
+<%- include('./partials/header') %>
+<div class="text-center m-3 p-3">
+    <h3>The vaccine available centers at the pincode <%= pincode %> are</h3>
+</div>
+<div class="row">
+    <div class="col-6 offset-3">
+      <% if (centerdata.length == 0) { %>
+        <div class="text-center">There are no centers available for the provided pincode rigth now</div>
+      <% } else { %>
+        <% for (let centers of centerdata) { %>
+            <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title"><%=centers.name%></h5>
+                  <h6 class="card-subtitle mb-2 text-muted"><%= centers.address%></h6>
+                  <% if (centers.vaccine_fees) { %>
+                  <% for (let vaccines of centers.vaccine_fees) { %>
+                    <p class="card-text m-0 p-0"><%=vaccines.vaccine%>-<%=vaccines.fee%></p>
+                    <% } %>
+                    <% } else {%>
+                      <p></p>
+                      <% } %>
+                  <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Timings: <%=centers.from%>-<%=centers.to%></li>
+                  <div class="card-header">
+                    <%=centers.fee_type%>
+                  </div>
+                  <!-- <li class="list-group-item">A second item</li>
+                  <li class="list-group-item">A third item</li> -->
+                </ul>
+                
+                <div class="card-body">
+                  <a href="/centers/<%=pincode%>/<%=centers.center_id%>" class="card-link btn btn-medium btn-primary">Vaccination Dates</a>
+                  <!-- <a href="#" class="card-link">Another link</a> -->
+                </div>
+              </div>
+              <% } %>
+              <% } %>
+    </div>
+</div>
+<%- include('./partials/footer') %>
